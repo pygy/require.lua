@@ -1,7 +1,7 @@
 package = "require"
 version = "0.1.0-1"
 source = {
-   url = "https://github.com/pygy/require.lua.git",
+   url = "git://github.com/pygy/require.lua.git",
    tag = "v0.1.0"
 }
 

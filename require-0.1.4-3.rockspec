@@ -1,5 +1,5 @@
 package = "require"
-version = "0.1.4-2"
+version = "0.1.4-3"
 source = {
    url = "git://github.com/pygy/require.lua.git",
    tag = "v0.1.4"
@@ -20,7 +20,7 @@ dependencies = {
 }
 
 build = {
-  type = "builtin",
+  type = "none",
   modules = {
     require = "require.lua"
   }

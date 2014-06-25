@@ -20,7 +20,7 @@ end
 
 local package, p_loaded = package, package.loaded
 
-local sentinel = newproxy()
+local sentinel = newproxy and newproxy() or string.char(1,2,3,4,5)
 
 local function require51 (name)
     name = checkstring(name)

@@ -45,7 +45,7 @@ local function require51 (name)
         local res = loader(name)
         if res ~= nil then
             p_loaded[name] = res
-        else
+        elseif p_loaded[name] == sentinel then
             p_loaded[name] = true
         end
     end
@@ -74,7 +74,7 @@ local function require52 (name)
         local res = loader(name, param)
         if res ~= nil then
             p_loaded[name] = res
-        else
+        elseif not p_loaded[name] then
             p_loaded[name] = true
         end
     end

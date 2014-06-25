@@ -1,5 +1,5 @@
 package = "require"
-version = "0.1.4-1"
+version = "0.1.4-2"
 source = {
    url = "git://github.com/pygy/require.lua.git",
    tag = "v0.1.4"
@@ -18,3 +18,11 @@ Lua 5.1 and 5.2 semantics are supported.
 dependencies = {
    "lua ~> 5.1, ~> 5.2"
 }
+
+build = {
+  type = "builtin",
+  modules = {
+    require = "require.lua"
+  }
+}
+

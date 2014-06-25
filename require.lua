@@ -2,7 +2,7 @@
 -- require = require"require".require
 -- :o)
 
-local error, ipairs, type = error, ipairs, type
+local error, ipairs, newproxy, type = error, ipairs, newproxy, type
 
 local t_concat = table.concat
 

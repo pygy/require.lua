@@ -16,17 +16,11 @@ local function checkstring(s)
     error("bad argument #1 to 'require' (string expected, got "..type(s)..")", 3)
 end
 
-local function callable(f)
-    if type(f) == "function" then return true end
-    local mt = getmetatable(f) or false
-    return mt and type(mt.__call) == "function"
-end
-
 --- for Lua 5.1
 
 local package, p_loaded = package, package.loaded
 
-local sentinel = function()end
+local sentinel = newproxy()
 
 local function require51 (name)
     name = checkstring(name)
@@ -37,7 +31,7 @@ local function require51 (name)
         local loader
         for _, searcher in ipairs(package.loaders) do
             loader = searcher(name)
-            if callable(loader) then break end
+            if type(loader) == "function" then break end
             if type(loader) == "string" then
                 -- `loader` is actually an error message
                 msg[#msg + 1] = loader
@@ -67,7 +61,7 @@ local function require52 (name)
         local loader, param
         for _, searcher in ipairs(package.searchers) do
             loader, param = searcher(name)
-            if callable(loader) then break end
+            if type(loader) == "function" then break end
             if type(loader) == "string" then
                 -- `loader` is actually an error message
                 msg[#msg + 1] = loader

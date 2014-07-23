@@ -26,7 +26,9 @@ local function require51 (name)
     name = checkstring(name)
     if p_loaded[name] == sentinel then
         error("loop or previous error loading module '"..name.."'", 2)
-    elseif not p_loaded[name] then
+    end
+    local module = p_loaded[name]
+    if not module then
         local msg = {}
         local loader
         for _, searcher in ipairs(package.loaders) do
@@ -48,15 +50,17 @@ local function require51 (name)
         elseif p_loaded[name] == sentinel or not p_loaded[name] then
             p_loaded[name] = true
         end
+        module = p_loaded[name]
     end
-    return p_loaded[name]
+    return module
 end
 
 --- for Lua 5.2
 
 local function require52 (name)
     name = checkstring(name)
-    if not p_loaded[name] then
+    local module = p_loaded[name]
+    if not module then
         local msg = {}
         local loader, param
         for _, searcher in ipairs(package.searchers) do
@@ -77,8 +81,9 @@ local function require52 (name)
         elseif not p_loaded[name] then
             p_loaded[name] = true
         end
+        module = p_loaded[name]
     end
-    return p_loaded[name]
+    return module
 end
 
 local module = {require51 = require51, require52 = require52}

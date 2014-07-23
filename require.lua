@@ -1,4 +1,4 @@
---- usage: 
+--- usage:
 -- require = require"require".require
 -- :o)
 
@@ -27,31 +27,33 @@ local function require51 (name)
     if p_loaded[name] == sentinel then
         error("loop or previous error loading module '"..name.."'", 2)
     end
+
     local module = p_loaded[name]
-    if not module then
-        local msg = {}
-        local loader
-        for _, searcher in ipairs(package.loaders) do
-            loader = searcher(name)
-            if type(loader) == "function" then break end
-            if type(loader) == "string" then
-                -- `loader` is actually an error message
-                msg[#msg + 1] = loader
-            end
-            loader = nil
+    if module then return module end
+
+    local msg = {}
+    local loader
+    for _, searcher in ipairs(package.loaders) do
+        loader = searcher(name)
+        if type(loader) == "function" then break end
+        if type(loader) == "string" then
+            -- `loader` is actually an error message
+            msg[#msg + 1] = loader
         end
-        if loader == nil then
-            error("module '" .. name .. "' not found: "..t_concat(msg), 2)
-        end
-        p_loaded[name] = sentinel
-        local res = loader(name)
-        if res ~= nil then
-            p_loaded[name] = res
-        elseif p_loaded[name] == sentinel or not p_loaded[name] then
-            p_loaded[name] = true
-        end
-        module = p_loaded[name]
+        loader = nil
     end
+    if loader == nil then
+        error("module '" .. name .. "' not found: "..t_concat(msg), 2)
+    end
+    p_loaded[name] = sentinel
+    local res = loader(name)
+    if res ~= nil then
+        module = res
+    elseif p_loaded[name] == sentinel or not p_loaded[name] then
+        module = true
+    end
+
+    p_loaded[name] = module
     return module
 end
 
@@ -60,33 +62,38 @@ end
 local function require52 (name)
     name = checkstring(name)
     local module = p_loaded[name]
-    if not module then
-        local msg = {}
-        local loader, param
-        for _, searcher in ipairs(package.searchers) do
-            loader, param = searcher(name)
-            if type(loader) == "function" then break end
-            if type(loader) == "string" then
-                -- `loader` is actually an error message
-                msg[#msg + 1] = loader
-            end
-            loader = nil
+    if module then return module end
+
+    local msg = {}
+    local loader, param
+    for _, searcher in ipairs(package.searchers) do
+        loader, param = searcher(name)
+        if type(loader) == "function" then break end
+        if type(loader) == "string" then
+            -- `loader` is actually an error message
+            msg[#msg + 1] = loader
         end
-        if loader == nil then
-            error("module '" .. name .. "' not found: "..table.concat(msg), 2)
-        end
-        local res = loader(name, param)
-        if res ~= nil then
-            p_loaded[name] = res
-        elseif not p_loaded[name] then
-            p_loaded[name] = true
-        end
-        module = p_loaded[name]
+        loader = nil
     end
+    if loader == nil then
+        error("module '" .. name .. "' not found: "..table.concat(msg), 2)
+    end
+    local res = loader(name, param)
+    if res ~= nil then
+        module = res
+    elseif not p_loaded[name] then
+        module = true
+    end
+
+    p_loaded[name] = module
     return module
 end
 
-local module = {require51 = require51, require52 = require52}
+local module = {
+    VERSION = "0.1.6"
+    require51 = require51,
+    require52 = require52
+}
 
 if _VERSION == "Lua 5.1" then module.require = require51 end
 if _VERSION == "Lua 5.2" then module.require = require52 end

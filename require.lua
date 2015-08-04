@@ -26,7 +26,7 @@ local function require51 (name)
     if p_loaded[name] == sentinel then
         error("loop or previous error loading module '"..name.."'", 2)
     end
-    checkstring(name)
+    name = checkstring(name)
 
     local module = p_loaded[name]
     if module then return module end

@@ -8,25 +8,24 @@ local t_concat = table.concat
 
 --- Helpers
 
-local function _tostring(s) return ""..s end
-
 local function checkstring(s)
-    local success, res = pcall(_tostring, s)
-    if success then return res end
-    error("bad argument #1 to 'require' (string expected, got "..type(s)..")", 3)
+    if type(s) ~= "string" then
+        error("bad argument #1 to 'require' (string expected, got "..type(s)..")", 3)
+    end
+    return s
 end
 
 --- for Lua 5.1
 
 local package, p_loaded = package, package.loaded
 
-local sentinel = newproxy and newproxy() or string.char(1,2,3,4,5)
+local sentinel = {} --newproxy and newproxy() or string.char(1,2,3,4,5)
 
 local function require51 (name)
-    name = checkstring(name)
     if p_loaded[name] == sentinel then
         error("loop or previous error loading module '"..name.."'", 2)
     end
+    checkstring(name)
 
     local module = p_loaded[name]
     if module then return module end

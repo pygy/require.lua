@@ -26,7 +26,7 @@ local package, p_loaded = package, package.loaded
 
 
 local sentinel do
-    local function errhandler(e) error("the require sentinel can't be indexed or updated") end
+    local function errhandler() error("the require sentinel can't be indexed or updated") end
     sentinel = newproxy and newproxy() or setmetatable({}, {__index = errhandler, __newindex = errhandler, __metatable = false})
 end
 

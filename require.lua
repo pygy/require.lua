@@ -9,6 +9,7 @@ local t_concat = table.concat
 --- Helpers
 
 local function checkstring(s)
+    s = type(s) == "number" and tostring(s) or s -- support numerical module name
     if type(s) ~= "string" then
         error("bad argument #1 to 'require' (string expected, got "..type(s)..")", 3)
     end

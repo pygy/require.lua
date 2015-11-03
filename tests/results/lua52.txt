@@ -1,0 +1,34 @@
+tested: [Lua 5.2]
+
+with require from _G
+mod.true	boolean	true
+mod.false	boolean	false
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	boolean	false
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	false
+modnil.nil	boolean	true
+
+with require from require.lua:require51
+mod.true	boolean	true
+mod.false	boolean	false
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	boolean	false
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	true
+modnil.nil	boolean	true
+
+with require from require.lua:require52
+mod.true	boolean	true
+mod.false	boolean	false
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	boolean	false
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	true
+modnil.nil	boolean	true

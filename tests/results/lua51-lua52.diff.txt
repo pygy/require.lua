@@ -1,0 +1,30 @@
+--- lua51.txt	2015-10-02 21:20:24.111083425 +0200
++++ lua52.txt	2015-10-02 21:20:28.406922550 +0200
+@@ -1,4 +1,4 @@
+-tested: [Lua 5.1]
++tested: [Lua 5.2]
+ 
+ with require from _G
+ mod.true	boolean	true
+@@ -9,7 +9,7 @@
+ modi.nil	string	modi.nil
+ modnil.true	boolean	true
+ modnil.false	boolean	false
+-modnil.nil	nil	nil
++modnil.nil	boolean	true
+ 
+ with require from require.lua:require51
+ mod.true	boolean	true
+@@ -24,10 +24,10 @@
+ 
+ with require from require.lua:require52
+ mod.true	boolean	true
+-mod.false	ERROR	./require.lua:77: bad argument #1 to 'ipairs' (table expected, got nil)
++mod.false	boolean	false
+ mod.nil	boolean	true
+ modi.true	boolean	true
+-modi.false	ERROR	./require.lua:77: bad argument #1 to 'ipairs' (table expected, got nil)
++modi.false	boolean	false
+ modi.nil	string	modi.nil
+ modnil.true	boolean	true
+ modnil.false	boolean	true

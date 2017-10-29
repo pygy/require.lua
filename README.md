@@ -1,4 +1,4 @@
-#require.lua
+# require.lua
 
 `require()` rewritten in plain Lua, as close as possible to the original.
 

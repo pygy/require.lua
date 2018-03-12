@@ -2,7 +2,8 @@
 -- require = require"require".require
 -- :o)
 
-local error, ipairs, newproxy, type = error, ipairs, newproxy, type
+local error, ipairs, newproxy, tostring, type 
+    = error, ipairs, newproxy, tostring, type
 
 local t_concat = table.concat
 
@@ -22,8 +23,7 @@ end
 
 --- for Lua 5.1
 
-local package, p_loaded = package, package.loaded
-
+local package, p_loaded, setmetatable = package, package.loaded, setmetatable
 
 local sentinel do
     local function errhandler() error("the require() sentinel can't be indexed or updated", 2) end
@@ -102,7 +102,7 @@ local function require52 (name)
 end
 
 local module = {
-    VERSION = "0.1.7",
+    VERSION = "0.1.8",
     require51 = require51,
     require52 = require52
 }

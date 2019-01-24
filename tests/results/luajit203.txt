@@ -1,0 +1,34 @@
+tested: [Lua 5.1] LuaJIT 2.0.3 Linux/x64
+
+with require from _G
+mod.true	boolean	true
+mod.false	boolean	false
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	boolean	false
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	false
+modnil.nil	nil	nil
+
+with require from require.lua:require51
+mod.true	boolean	true
+mod.false	boolean	false
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	boolean	false
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	true
+modnil.nil	boolean	true
+
+with require from require.lua:require52
+mod.true	boolean	true
+mod.false	ERROR	./require.lua:77: bad argument #1 to 'ipairs' (table expected, got nil)
+mod.nil	boolean	true
+modi.true	boolean	true
+modi.false	ERROR	./require.lua:77: bad argument #1 to 'ipairs' (table expected, got nil)
+modi.nil	string	modi.nil
+modnil.true	boolean	true
+modnil.false	boolean	true
+modnil.nil	boolean	true
